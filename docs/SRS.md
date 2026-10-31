@@ -111,3 +111,18 @@ Exact route names may be adjusted during implementation while preserving these c
 6. Invalid values are rejected with a useful error response.
 7. In Beta, unauthenticated users cannot access protected operations.
 8. In Beta, users cannot perform actions outside their assigned role and permissions.
+
+
+## Use Cases
+
+### UC-1: Product Management (Admin / Staff)
+- **Actor:** Admin, Staff
+- **Description:** Allows authorized users to add new bakery products, view the product list, inspect individual product details, update pricing/inventory, or remove discontinued items.
+- **Preconditions:** User must be authenticated and possess Admin or Staff privileges.
+- **Postconditions:** The product database is updated and reflected in the frontend application instantly.
+
+### UC-2: Product Browsing & Ordering (Customer)
+- **Actor:** Customer
+- **Description:** Allows visitors and registered customers to view available bakery products and submit orders.
+- **Preconditions:** None for browsing; user account required for order placement.
+- **Postconditions:** An order record is generated in the system.

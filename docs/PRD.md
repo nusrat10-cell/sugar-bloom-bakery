@@ -88,3 +88,34 @@ Role enforcement is planned for Beta. During the MVP, the app may run locally wi
 - Low-stock items are clearly identifiable.
 - In Beta, users can log in and backend permissions prevent unauthorized actions.
 - The application can be demonstrated end-to-end using the planned technology stack.
+## 10. User Stories
+
+The following user stories describe the main actions each type of user should be able to perform.
+
+### Owner/Admin
+- As an Owner/Admin, I want to view all inventory items so that I can monitor the bakery's stock.
+- As an Owner/Admin, I want to create, update, and delete inventory items so that I can maintain accurate inventory records.
+- As an Owner/Admin, I want to view inventory activity so that I can track changes in stock.
+
+### Manager
+- As a Manager, I want to add new inventory items so that newly purchased ingredients can be recorded.
+- As a Manager, I want to update item quantities and low-stock thresholds so that inventory information remains accurate.
+- As a Manager, I want to record stock-in and stock-out movements so that ingredient usage and purchases can be tracked.
+
+### Staff
+- As a Staff member, I want to view inventory items so that I know which ingredients are available.
+- As a Staff member, I want to record permitted stock usage so that ingredient consumption is updated.
+- As a Staff member, I want to identify low-stock items so that I can inform the manager when supplies need replenishment.
+
+## 11. Project Milestones
+
+The project will be developed in stages to ensure that the core inventory features are completed before additional security and deployment features are introduced.
+
+| Milestone | Activities | Expected Outcome |
+|---|---|---|
+| Milestone 1: Project Setup | Create the GitHub repository, configure the React + TypeScript frontend and FastAPI backend, and organize the project structure. | Working project foundation. |
+| Milestone 2: Database and Backend | Design the inventory model and implement REST API endpoints for creating, reading, updating, and deleting inventory items. | Functional backend CRUD operations. |
+| Milestone 3: Frontend Development | Build the inventory interface and connect it to the backend APIs. | Functional inventory management interface. |
+| Milestone 4: MVP Testing | Test CRUD operations, stock movements, input validation, and low-stock indicators. | Working MVP for the mid-term demonstration. |
+| Milestone 5: Authentication and Authorization | Implement login, user roles, permissions, and protected API endpoints. | Role-based access control. |
+| Milestone 6: Final Testing and Deployment | Perform integration testing, handle errors, configure environment variables, and deploy the application. | Beta version ready for the final demonstration. |

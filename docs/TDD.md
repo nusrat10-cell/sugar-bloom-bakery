@@ -162,3 +162,21 @@ An item is low-stock when:
 - **Incorrect stock values:** validate all quantities on the backend and test movement logic.
 - **Unauthorized access in Beta:** enforce permissions in FastAPI, not only in the UI.
 - **Environment differences:** document local setup and use environment variables for configuration.
+
+
+## Project Structure
+sugar-bloom-bakery/
+├── frontend/             # React + Vite + TypeScript application
+│   ├── src/              # Components, pages, services, and routing
+│   └── package.json      # Frontend dependencies
+├── backend/              # FastAPI + Python application
+│   ├── app/              # Routers, models, schemas, database config
+│   └── requirements.txt  # Python dependencies
+├── docs/                 # Project documentation (PRD, SRS, TDD)
+└── vercel.json           # Vercel deployment configuration
+
+## Deployment & Configuration
+- **Frontend Hosting:** Deployed on Vercel utilizing static build configurations.
+- **Backend Hosting:** Deployed as serverless functions or containerized web service via Vercel/FastAPI integrations.
+- **Database:** Supabase PostgreSQL connected via environment variables (`DATABASE_URL`).
+- **Environment Variables:** Managed securely via `.env` files locally and Vercel project settings in production.
