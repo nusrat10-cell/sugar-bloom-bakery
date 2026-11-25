@@ -1,29 +1,519 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+
 :root {
-  font-family: system-ui, sans-serif;
-  color-scheme: light dark;
+  /* Bakery Color Palette */
+  --pastry-cream: #f0d7a7;
+  --cinnamon-rose: #c37960;
+  --roasted-cocoa: #894e3f;
+  --vanilla-chiffon: #eee1ba;
+  --toasted-mocha: #9c634f;
+
+  /* Derived Surface & Ink Tokens */
+  --bg-page: #fbf6ec;
+  --bg-surface: #ffffff;
+  --bg-warm-tint: #f7ebd7;
+  --bg-input: #fdf9f2;
+  --cocoa-deep: #5e3328;
+  --ink-primary: #3b211a;
+  --ink-secondary: #755246;
+  --border-warm: #e4cfa9;
+  --border-mocha: #d2b199;
+
+  /* Action & Status Accents */
+  --export-bg: #eef5ec;
+  --export-text: #2e5e38;
+  --export-border: #b7d4bc;
+  --danger-bg: #fdeceb;
+  --danger-text: #9e2620;
+  --danger-border: #f3c1be;
+
+  --shadow-card: 0 6px 22px rgba(137, 78, 63, 0.08);
+  --shadow-elevated: 0 12px 30px rgba(94, 51, 40, 0.13);
+  --radius-xl: 18px;
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 8px;
 }
 
-main {
-  max-width: 480px;
-  margin: 4rem auto;
-  padding: 0 1rem;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-form {
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--bg-page);
+  background-image:
+    radial-gradient(circle at 8% 6%, rgba(240, 215, 167, 0.45) 0%, transparent 42%),
+    radial-gradient(circle at 92% 12%, rgba(195, 121, 96, 0.14) 0%, transparent 45%),
+    radial-gradient(circle at 75% 92%, rgba(238, 225, 186, 0.55) 0%, transparent 48%);
+  color: var(--ink-primary);
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Full-Screen Dashboard Container */
+#root > div {
+  width: 100% !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 28px 36px 68px !important;
+}
+
+/* Centered Auth Layout Only When Not Logged In */
+#root > div:not(:has(header)):has(form) {
+  max-width: 460px !important;
+  min-height: 100vh;
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 20px !important;
 }
 
-input {
-  flex: 1;
-  padding: 0.5rem;
+#root > div:not(:has(header)):has(form) h1 {
+  text-align: center;
+  font-size: 2.35rem;
+  margin-bottom: 1.2rem;
 }
 
+/* Headings */
+h1,
+h2,
+h3 {
+  font-family: "Fraunces", Georgia, serif;
+  color: var(--pastry-cream);
+  margin-top: 0;
+  letter-spacing: -0.015em;
+}
+
+h1 {
+  font-size: 1.95rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.32rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px solid var(--border-warm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+h3 {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: var(--toasted-mocha);
+  margin-bottom: 10px;
+}
+
+p {
+  color: var(--ink-secondary);
+  margin-top: 0;
+}
+
+/* Top Bakery Header Banner */
+header {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  background: linear-gradient(125deg, var(--roasted-cocoa) 0%, var(--toasted-mocha) 62%, var(--cinnamon-rose) 100%);
+  color: var(--vanilla-chiffon);
+  padding: 22px 28px;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(240, 215, 167, 0.45);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-elevated);
+}
+
+header h1 {
+  color: var(--vanilla-chiffon) !important;
+  font-size: 1.8rem;
+  margin: 0 0 4px 0 !important;
+}
+
+header p,
+header span,
+header strong {
+  color: var(--pastry-cream) !important;
+  font-size: 0.92rem;
+  margin: 0 !important;
+}
+
+header button {
+  background: var(--vanilla-chiffon);
+  color: var(--roasted-cocoa);
+  border: 1.5px solid var(--pastry-cream);
+  padding: 9px 18px;
+  font-weight: 700;
+  box-shadow: 0 3px 10px rgba(59, 33, 26, 0.18);
+}
+
+header button:hover:not(:disabled) {
+  background: #ffffff;
+  color: var(--cocoa-deep);
+  border-color: #ffffff;
+}
+
+/* Navigation / Filter Tabs Bar */
+#root > div:has(header) > div:has(> button) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  background: var(--vanilla-chiffon);
+  padding: 10px 14px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-warm);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+}
+
+#root > div:has(header) > div:has(> button) button {
+  background: transparent;
+  color: var(--roasted-cocoa);
+  border: 1.5px solid transparent;
+  box-shadow: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+}
+
+#root > div:has(header) > div:has(> button) button:hover:not(:disabled) {
+  background: var(--pastry-cream);
+  border-color: var(--border-mocha);
+  color: var(--cocoa-deep);
+  transform: translateY(-1px);
+}
+
+/* Auth Mode Switcher Tabs */
+#root > div:not(:has(header)):has(form) > div:first-of-type {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: var(--vanilla-chiffon);
+  padding: 6px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-warm);
+  margin-bottom: 16px;
+}
+
+#root > div:not(:has(header)):has(form) > div:first-of-type button {
+  background: transparent;
+  color: var(--roasted-cocoa);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+/* Cards, Sections & Forms */
+section,
+form {
+  width: 100%;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+}
+
+/* Product Card Grid inside Menu / Items Sections */
+section > div[style*="grid"],
+section > div[style*="flex-wrap"],
+.product-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+  gap: 18px !important;
+  margin-top: 14px;
+}
+
+section > div[style*="grid"] > div,
+section > div[style*="flex-wrap"] > div,
+.product-card {
+  background: var(--bg-input) !important;
+  border: 1px solid var(--border-warm) !important;
+  border-top: 4px solid var(--cinnamon-rose) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 18px 20px !important;
+  box-shadow: 0 4px 14px rgba(137, 78, 63, 0.06) !important;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+section > div[style*="grid"] > div:hover,
+section > div[style*="flex-wrap"] > div:hover,
+.product-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--toasted-mocha) !important;
+  box-shadow: var(--shadow-elevated) !important;
+}
+
+/* Dashboard Add Item Multi-Column Grid */
+#root > div:has(header) form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  align-items: end;
+}
+
+#root > div:has(header) form h2,
+#root > div:has(header) form h3 {
+  grid-column: 1 / -1;
+  margin-bottom: 4px;
+}
+
+#root > div:has(header) form button[type="submit"] {
+  grid-column: 1 / -1;
+  justify-self: start;
+  min-width: 185px;
+}
+
+/* Login / Signup Form */
+#root > div:not(:has(header)) form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Form Labels & Inputs */
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  margin-bottom: 5px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 0.94rem;
+  color: var(--ink-primary);
+  background: var(--bg-input);
+  border: 1.5px solid var(--border-warm);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9b7d70;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: var(--roasted-cocoa);
+  box-shadow: 0 0 0 3px rgba(137, 78, 63, 0.16);
+}
+
+/* Base Buttons */
 button {
-  padding: 0.5rem 1rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--roasted-cocoa);
+  background: var(--roasted-cocoa);
+  color: var(--vanilla-chiffon);
   cursor: pointer;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
-.error {
-  color: crimson;
+button:hover:not(:disabled) {
+  background: var(--cocoa-deep);
+  border-color: var(--cocoa-deep);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(94, 51, 40, 0.22);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Export CSV Button Styling */
+button[class*="export" i],
+button[id*="export" i],
+button:has-text("Export"),
+.btn-export {
+  background: var(--export-bg) !important;
+  color: var(--export-text) !important;
+  border-color: var(--export-border) !important;
+}
+
+button[class*="export" i]:hover:not(:disabled),
+button[id*="export" i]:hover:not(:disabled),
+.btn-export:hover:not(:disabled) {
+  background: #d9ebd6 !important;
+  border-color: var(--export-text) !important;
+  color: #1f4627 !important;
+}
+
+/* Ban / Unban / Revoke / Delete Destructive Action Buttons */
+button[class*="ban" i],
+button[class*="revoke" i],
+button[class*="delete" i],
+.btn-ban,
+.btn-danger {
+  background: var(--danger-bg) !important;
+  color: var(--danger-text) !important;
+  border-color: var(--danger-border) !important;
+}
+
+button[class*="ban" i]:hover:not(:disabled),
+button[class*="revoke" i]:hover:not(:disabled),
+button[class*="delete" i]:hover:not(:disabled),
+.btn-ban:hover:not(:disabled),
+.btn-danger:hover:not(:disabled) {
+  background: var(--danger-text) !important;
+  border-color: var(--danger-text) !important;
+  color: #ffffff !important;
+}
+
+/* Role / Promote Secondary Action Buttons */
+button[class*="role" i],
+button[class*="admin" i],
+.btn-secondary {
+  background: var(--bg-warm-tint);
+  color: var(--roasted-cocoa);
+  border-color: var(--border-mocha);
+}
+
+button[class*="role" i]:hover:not(:disabled),
+button[class*="admin" i]:hover:not(:disabled),
+.btn-secondary:hover:not(:disabled) {
+  background: var(--cinnamon-rose);
+  border-color: var(--cinnamon-rose);
+  color: #ffffff;
+}
+
+/* Tables (Users, Sessions, Audit Logs, Products) */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 12px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+thead {
+  background: linear-gradient(90deg, var(--roasted-cocoa) 0%, var(--toasted-mocha) 100%);
+}
+
+th {
+  text-align: left;
+  padding: 13px 16px;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vanilla-chiffon);
+}
+
+td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border-warm);
+  color: var(--ink-primary);
+  vertical-align: middle;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:nth-child(even) {
+  background: var(--bg-input);
+}
+
+tbody tr:hover {
+  background: var(--bg-warm-tint);
+}
+
+td button {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+
+/* Error & Alert Banners */
+p[style*="red"],
+p[style*="crimson"],
+div[style*="red"] {
+  width: 100%;
+  background: var(--danger-bg);
+  color: var(--danger-text) !important;
+  border: 1px solid var(--danger-border);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-warm);
+  margin: 24px 0;
+}
+
+@media (max-width: 768px) {
+  #root > div {
+    padding: 18px 14px 48px !important;
+  }
+
+  header {
+    padding: 18px 20px;
+  }
+
+  section,
+  form {
+    padding: 18px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
